@@ -1,7 +1,7 @@
 # Plan de Proyecto: Implementación de Scrum y DevOps aplicado a InvenTree
 
 ## 1. Justificación y Contexto del Proyecto
-Se ha seleccionado **InvenTree**, un sistema de gestión de inventarios de código abierto (ERP/SCM), debido a que cumple rigurosamente con los criterios de evaluación de la asignatura:
+Se ha seleccionado **InvenTree**, un sistema de gestión de inventarios de código abierto (ERP), debido a que cumple rigurosamente con los criterios de evaluación de la asignatura:
 * **Licencia:** MIT (permite bifurcación, modificación y uso libre sin restricciones académicas).
 * **Stack Tecnológico:** Desarrollado con un backend robusto en Python (Django) y un frontend moderno, representando una arquitectura vigente en la industria.
 * **Complejidad Escalonada:** Supera ampliamente las 10 KLOC y posee múltiples módulos empresariales (gestión de stock, control de proveedores, órdenes de compra e informes).
@@ -22,7 +22,6 @@ El ciclo de vida del desarrollo se gestionará integrando el marco de trabajo á
 
 ### 2.2. Arquitectura DevOps y Herramientas Tecnológicas
 * **Gestión y Planificación:** *GitHub Projects* (Tablero Kanban con estados: To Do, In Progress, Done).
-* **Trazabilidad y Requisitos:** *GitHub Issues* (para registrar historias de usuario, tareas técnicas y reporte de bugs).
 * **Integración Continua (CI):** *GitHub Actions* (automatización de compilación y ejecución de pruebas unitarias al integrar nuevo código a la rama principal).
 * **Despliegue Continuo (CD):** *GitHub Actions* (automatización del despliegue en entornos de prueba - staging).
 * **Documentación Pública:** *GitHub Pages* (publicación del burndown chart, plan de proyecto y justificación técnica).
