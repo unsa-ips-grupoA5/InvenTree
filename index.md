@@ -29,57 +29,93 @@ El producto de software se encuentra regulado bajo la **Licencia MIT**, condici�
 
 ---
 
-## 🧩 2. Arquitectura Funcional: Módulos Principales (US-1.1)
+## 🧩 2. Arquitectura del Sistema
 
-El análisis del sistema permitió identificar una segregación modular sólida, compuesta por cuatro subsistemas centrales que operan de manera interconectada:
+La arquitectura de InvenTree está basada en una estructura cliente-servidor compuesta por una aplicación web moderna, una API REST y un backend desarrollado sobre el framework Django.
+```text
+                    Usuarios
+                        │
+                        ▼
+        Frontend Web (React + TypeScript)
+                        │
+                        ▼
+                 API REST
+                        │
+                        ▼
+          Backend Django (Python)
+                        │
+                        ▼
+                Base de Datos
 ```
-                     ┌───────────────────────────────────┐
-                     │       InvenTree Core Engine       │
-                     └─────────────────┬─────────────────┘
-                                       │
-       ┌───────────────────────────────┼─────────────────────────────┐
-       ▼                               ▼                             ▼
-┌─────────────────┐           ┌─────────────────┐           ┌─────────────────┐
-│ Módulo de Partes│           │ Módulo de Stock │           │Módulo de Compras│
-│ (Catálogo/BOM)  │           │ (Inventariado)  │           │  y Proveedores  │
-└────────┬────────┘           └────────┬────────┘           └────────┬────────┘
-         │                             │                             │
-         └─────────────────────────────┼─────────────────────────────┘
-                                       ▼
-                     ┌───────────────────────────────────┐
-                     │    Módulo de Ventas y Clientes    │
-                     └───────────────────────────────────┘
-```
+Sobre esta arquitectura se implementan los diferentes módulos funcionales del sistema:
 
-## 🗂️ A. Módulo de Partes (Management & BOM)
-Encargado de la gestión del catálogo maestro de artículos. Permite la parametrización de categorías, la asignación de propiedades técnicas variables y, fundamentalmente, la estructuración de la **Lista de Materiales (BOM - Bill of Materials)**. Este subsistema es crítico para determinar la composición jerárquica de los productos terminados a partir de materias primas.
+##  A. Gestión de Partes (Parts)
+Permite registrar y administrar componentes, productos y listas de materiales (BOM - Bill of Materials), estableciendo relaciones jerárquicas entre ellos.
 
-### 📦 B. Módulo de Stock (Ubicaciones y Trazabilidad)
-Controla la existencia física de los elementos almacenados. Proporciona un rastreo preciso mediante la asignación de ubicaciones lógicas jerárquicas, control estricto de números de serie, códigos de lote y registros de movimientos históricos, asegurando que los niveles de inventario mínimo y máximo se mantengan optimizados.
+###  B. Gestión de Inventario (Stock)
+Controla las existencias de productos y materiales, permitiendo registrar ubicaciones, movimientos, cantidades disponibles y trazabilidad del inventario.
 
-### 🤝 C. Módulo de Proveedores y Compras (Purchasing)
-Soporta el flujo de adquisición de suministros externos. Facilita la creación y el seguimiento de órdenes de compra (PO), la gestión de catálogos específicos de proveedores vinculados a las partes internas, y la automatización del proceso de recepción de mercancías directamente en las áreas de stock designadas.
+###  C. Gestión de Compras y Proveedores
+Administra proveedores, órdenes de compra, recepción de materiales y seguimiento de adquisiciones.
 
-### 💰 D. Módulo de Ventas y Clientes (Sales & Orders)
-Administra las demandas de salida del software. Permite procesar órdenes de venta (SO), registrar información de clientes, supervisar los despachos de productos terminados y generar la documentación pertinente de salida, cerrando de este modo el ciclo comercial básico del negocio.
+###  D. Gestión de Ventas y Clientes
+Permite gestionar clientes, órdenes de venta y el seguimiento de productos comercializados.
+
+###  E. Gestión de Manufactura
+Facilita la planificación y ejecución de procesos de ensamblaje y producción, utilizando listas de materiales para construir productos finales a partir de componentes existentes.
+
+###  F. Reportes y Trazabilidad
+Genera información relevante sobre inventario, movimientos, compras, ventas y procesos de manufactura, manteniendo la trazabilidad de cada elemento del sistema.
+
+###  G. API REST
+Proporciona acceso programático a la información del sistema, permitiendo la integración con aplicaciones externas y herramientas de automatización.
 
 ---
 
-## 💻 3. Stack Tecnológico de Grado Industrial (US-1.1)
+## 💻 3. Stack Tecnológico 
 
-La construcción de InvenTree se soporta sobre tecnologías de alta vigencia en el mercado de software contemporáneo, lo que asegura escalabilidad, portabilidad y mantenibilidad:
+La construcción de InvenTree se soporta sobre tecnologías ampliamente adoptadas en el desarrollo de software empresarial moderno, permitiendo escalabilidad, mantenibilidad, portabilidad e integración con diversos entornos de despliegue.
 
-| Capa del Sistema | Tecnología Principal | Propósito en la Infraestructura |
-| :--- | :--- | :--- |
-| **Backend Framework** | Python / Django | Motor central encargado de la lógica de negocio, ORM, enrutamiento y exposición de servicios a través de una API REST robusta. |
-| **Frontend UI** | JavaScript / Componentes Modernos | Construcción de una interfaz adaptativa, fluida y de alta interactividad para la experiencia del usuario final. |
-| **Persistencia** | PostgreSQL / MySQL / SQLite | Flexibilidad en el motor de base de datos relacional para el almacenamiento estructurado y seguro de transacciones de inventario. |
-| **Contenedores** | Docker & Docker Compose | Aislamiento y estandarización del entorno, garantizando la consistencia entre desarrollo, pruebas (Staging) y despliegue final. |
+| Capa del Sistema               | Tecnología Principal        | Propósito en la Infraestructura                                                                                                                                       |
+| :----------------------------- | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend Framework**          | Python / Django             | Motor principal encargado de la lógica de negocio, gestión de entidades, autenticación, control de permisos, ORM y exposición de servicios mediante una API REST.     |
+| **API de Integración**         | Django REST Framework       | Proporciona una interfaz REST robusta para la comunicación entre frontend, backend y sistemas externos, facilitando integraciones y automatización de procesos.       |
+| **Frontend UI**                | React + TypeScript          | Construcción de una interfaz web moderna, dinámica y altamente interactiva para la gestión eficiente de inventarios, manufactura y operaciones empresariales.         |
+| **Herramientas Frontend**      | Vite                        | Sistema de construcción y empaquetado que optimiza el desarrollo, compilación y despliegue de la aplicación cliente.                                                  |
+| **Persistencia de Datos**      | PostgreSQL / MySQL / SQLite | Soporte para múltiples motores de bases de datos relacionales, permitiendo almacenar de forma segura la información de inventario, órdenes, proveedores y producción. |
+| **Contenedorización**          | Docker & Docker Compose     | Estandarización y aislamiento del entorno de ejecución, garantizando consistencia entre desarrollo, pruebas y producción.                                             |
+| **Control de Versiones**       | Git & GitHub                | Gestión colaborativa del código fuente, control de cambios, seguimiento de incidencias y administración de versiones del producto.                                    |
+| **Documentación Técnica**      | Markdown                    | Elaboración de documentación técnica, manuales de usuario y guías de instalación mantenidas junto al código fuente.                                                   |
+| **Automatización y Calidad**   | GitHub Actions              | Plataforma de integración y automatización utilizada para ejecutar flujos de validación, pruebas y procesos asociados al ciclo de vida del software.                  |
+| **Arquitectura de Despliegue** | Cliente–Servidor Web        | Modelo arquitectónico que separa la capa de presentación, lógica de negocio y persistencia de datos para mejorar la escalabilidad y mantenibilidad del sistema.       |
+
+
+La combinación de Django, React, TypeScript y Docker permite que InvenTree mantenga una arquitectura moderna basada en servicios web, favoreciendo la modularidad del sistema, la integración mediante API REST y la posibilidad de desplegar la solución en diferentes entornos con un mínimo esfuerzo de configuración.
 
 ---
 
 ## ⏳ 4. Evolución del Producto y Control de Versiones (US-1.2)
 
-InvenTree presenta una alta tasa de actividad y soporte dentro de la comunidad open-source internacional. El análisis cronológico de sus versiones refleja una evolución orientada hacia la estabilidad del núcleo de la aplicación, optimizaciones de consultas de base de datos a gran escala y la continua expansión de sus endpoints de integración. 
+InvenTree es un proyecto Open Source que ha evolucionado continuamente gracias a la participación de la comunidad de desarrolladores.
 
-Para fines de este curso, el equipo ha tomado una versión estable reciente como línea base para implantar el marco **Scrum junto con las prácticas DevOps**. Actualmente, el proyecto cuenta con soporte nativo de pruebas automatizadas listas para ser integradas a procesos de Integración Continua (CI), facilitando la transición hacia pipelines de automatización que serán presentados en los hitos posteriores.
+La evolución del sistema se evidencia mediante:
+
+- Desarrollo continuo a través de múltiples versiones.
+- Historial activo de commits y contribuciones.
+- Corrección constante de errores y mejoras.
+- Incorporación de nuevas funcionalidades.
+- Expansión de la API REST.
+- Mejoras en los módulos de inventario, manufactura y trazabilidad.
+
+Esta evolución ha permitido que el sistema se convierta en una plataforma robusta para la gestión de inventarios y procesos de producción.
+El proyecto utiliza Git como sistema de control de versiones y GitHub como plataforma de colaboración.
+
+Las prácticas utilizadas incluyen:
+
+- Gestión de ramas (Branches).
+- Registro de cambios mediante Commits.
+- Integración de cambios mediante Pull Requests.
+- Seguimiento de incidencias mediante Issues.
+- Publicación de versiones mediante Releases.
+
+Estas herramientas permiten mantener un historial completo del desarrollo y facilitan la colaboración entre los miembros del proyecto.
