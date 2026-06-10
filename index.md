@@ -1,10 +1,9 @@
 # 📦 InvenTree - Sistema de Gestión de Inventarios
 
-**Curso:** Ingeniería y Procesos de Software
-**Grupo:** A5
+**Curso:** Ingeniería y Procesos de Software  
+**Grupo:** A5  
 **Periodo Académico:** Semestre 2026-A  
 **Institución:** Universidad Nacional de San Agustín  
-
 
 ---
 
