@@ -51,9 +51,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./.devcontainer/Dockerfile
+          file: ./docker/Dockerfile
           push: true
-          target: development 
           tags: ghcr.io/unsa-ips-grupoa5/inventree:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
