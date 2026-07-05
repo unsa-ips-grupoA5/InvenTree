@@ -1,0 +1,23 @@
+# Configuración básica de InvenTree para la simulación universitaria
+django:
+  # Clave secreta para Django
+  secret_key: "unsa_ips_secret_key_2026_grupo_a5"
+  # Permitir conexiones locales
+  allowed_hosts:
+    - "localhost"
+    - "127.0.0.1"
+    - "0.0.0.0"
+
+database:
+  # Usamos SQLite para que se cree automáticamente un archivo sin instalar un servidor pesado como PostgreSQL
+  engine: "sqlite3"
+  name: "/app/data/inventree_db.sqlite3"
+
+# Rutas obligatorias para los archivos del sistema
+database_options:
+  timeout: 60
+
+# Habilitar carpetas de almacenamiento
+media_dir: "/app/data/media"
+static_dir: "/app/data/static"
+backup_dir: "/app/data/backup"
