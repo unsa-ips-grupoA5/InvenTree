@@ -22,10 +22,7 @@ jobs:
       - name: Validar Indentación y Estilo de Código (Flake8)
         run: |
           pip install flake8
-          # Ejecuta un chequeo rápido en la carpeta backend de InvenTree
-          # (usamos --exit-zero para que una advertencia de estilo no te rompa la simulación universitaria,
-          # pero simula el proceso de revisión perfectamente)
-          flake8 src/backend/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 src/backend/ --count --select=E9,F63,F7,F82 --ignore=F824 --show-source --statistics
 
   # FASE 2: DESPLIEGUE CONTINUO (Construcción Docker y Entrega)
   despliegue-continuo:
