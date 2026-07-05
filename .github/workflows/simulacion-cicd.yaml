@@ -51,6 +51,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: ./.devcontainer/Dockerfile
           push: true
           target: development 
           tags: ghcr.io/unsa-ips-grupoa5/inventree:latest
