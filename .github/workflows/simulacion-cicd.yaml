@@ -53,10 +53,12 @@ jobs:
           context: .
           push: true
           target: development 
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/unsa-ips-grupoa5/inventree:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Confirmación de Despliegue en Servidor
         run: |
           echo "La imagen Docker válida ha sido creada y distribuida a GitHub Packages correctamente."
+          echo "Para probarla localmente ejecuta:"
+          echo "docker run -d --name inventree-test -p 8000:8000 ghcr.io/unsa-ips-grupoa5/inventree:latest"
