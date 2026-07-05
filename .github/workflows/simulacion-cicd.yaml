@@ -36,6 +36,9 @@ jobs:
       - name: Descargar Código Fuente
         uses: actions/checkout@v4
 
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
       - name: Autenticar en GitHub Packages (GHCR)
         uses: docker/login-action@v3
         with:
@@ -57,4 +60,3 @@ jobs:
       - name: Confirmación de Despliegue en Servidor
         run: |
           echo "La imagen Docker válida ha sido creada y distribuida a GitHub Packages correctamente."
-          echo "El pipeline ha automatizado el paso a producción de la rama feature/simulacion-cicd."
