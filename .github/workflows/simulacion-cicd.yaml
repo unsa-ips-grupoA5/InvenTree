@@ -1,0 +1,63 @@
+name: Simulación CI/CD - InvenTree
+
+on:
+  push:
+    branches: [ "develop/simulacion-cicd" ] # Solo se ejecutará en tu rama de simulación
+
+jobs:
+  # FASE 1: INTEGRACIÓN CONTINUA (Validación y Calidad de Código)
+  integracion-continua:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar Código Fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-cache-dependency-path: 'src/backend/requirements.txt'
+          python-version: '3.11'
+
+      # VALIDACIÓN: Comprobación de indentación y estilo (Linter)
+      - name: Validar Indentación y Estilo de Código (Flake8)
+        run: |
+          pip install flake8
+          # Ejecuta un chequeo rápido en la carpeta backend de InvenTree
+          # (usamos --exit-zero para que una advertencia de estilo no te rompa la simulación universitaria,
+          # pero simula el proceso de revisión perfectamente)
+          flake8 src/backend/ --count --select=E9,F63,F7,F82 --show-source --statistics
+
+  # FASE 2: DESPLIEGUE CONTINUO (Construcción Docker y Entrega)
+  despliegue-continuo:
+    needs: integracion-continua # Crucial: El CD NO inicia si el CI (validación) falla
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # Permiso para inyectar la imagen en GitHub Packages
+
+    steps:
+      - name: Descargar Código Fuente
+        uses: actions/checkout@v4
+
+      - name: Autenticar en GitHub Packages (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # AQUÍ VA LA CREACIÓN DEL DOCKER 
+      - name: Compilar Imagen Docker y Publicar en GitHub Packages
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          target: development 
+          tags: ghcr.io/${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Confirmación de Despliegue en Servidor
+        run: |
+          echo "La imagen Docker válida ha sido creada y distribuida a GitHub Packages correctamente."
+          echo "El pipeline ha automatizado el paso a producción de la rama feature/simulacion-cicd."
