@@ -2,7 +2,7 @@ name: Simulación CI/CD - InvenTree
 
 on:
   push:
-    branches: [ "develop/simulacion-cicd" ] # Solo se ejecutará en tu rama de simulación
+    branches: [ "develop" ]
 
 jobs:
   # FASE 1: INTEGRACIÓN CONTINUA (Validación y Calidad de Código)
