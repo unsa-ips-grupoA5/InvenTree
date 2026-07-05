@@ -4,7 +4,7 @@
 **Grupo:** A5  
 **Periodo Académico:** Semestre 2026-A  
 **Institución:** Universidad Nacional de San Agustín  
-
+##
 ---
 
 ## 👥 Estructura del Equipo de Trabajo (Scrum 3-5-3)
