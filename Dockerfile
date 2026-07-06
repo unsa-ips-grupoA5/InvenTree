@@ -28,3 +28,4 @@ EXPOSE 8000
 
 # Comando para simular el inicio de la aplicación
 CMD ["python", "src/backend/InvenTree/manage.py", "runserver", "0.0.0.0:8000"]
+#

@@ -17,7 +17,7 @@ database:
 database_options:
   timeout: 60
 
-# Habilitar carpetas de almacenamiento
+# Habilitar carpetas de almacenamiento ##
 media_dir: "/app/data/media"
 static_dir: "/app/data/static"
 backup_dir: "/app/data/backup"
