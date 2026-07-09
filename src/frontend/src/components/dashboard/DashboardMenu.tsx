@@ -48,7 +48,7 @@ export default function DashboardMenu({
     const username = user.username();
 
     return (
-      <StylishText size='lg'>{`${instanceName} - ${username}`}</StylishText>
+      <StylishText size='lg'>{`${instanceName} - ${username} (UNSA IPS Grupo A5)`}</StylishText>
     );
   }, [user, instanceName]);
 
