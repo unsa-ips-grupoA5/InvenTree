@@ -2424,7 +2424,7 @@ class StockItem(
         ):
             raise ValidationError(_('StockItem cannot be moved as it is not in stock'))
 
-        if quantity <= 0:
+        if quantity >= 0:
             return False
 
         if location is None:
